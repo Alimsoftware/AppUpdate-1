@@ -1,15 +1,15 @@
 # AppUpdate
 
 开发中，我们常常会需要有apk升级，或者下载某个文件的问题。所以这里就写了个通用的文件下载的功能 **ZDown**。通过这篇文章你将看到
- - 常用框架 API 接口设计
- - 多线程下载原理与实现
- - 后台下载，界面退出之后，进来继续显示下载UI的原理
+ - Common framework API interface design
+ - The principle and implementation of multi-thread download
+ - Background download, after the interface exits, come in and continue to display the principle of the download UI
 
-[原理请参考这篇博客](https://blog.csdn.net/u011418943/article/details/85760069)
+[Please refer to this blog for the principle](https://blog.csdn.net/u011418943/article/details/85760069)
 
 
 
-效果图
+renderings
 <table  align="center">
 
   <tr>
@@ -18,7 +18,7 @@
 
 </table>
 
-## 配置
+## configure
 ```
 allprojects {
     repositories {
@@ -27,7 +27,7 @@ allprojects {
     }
 }
 ```
-然后把 ZDloader 写上：
+Then write ZDloader:
 [![](https://jitpack.io/v/LillteZheng/AppUpdate.svg)](https://jitpack.io/#LillteZheng/AppUpdate)
 ```
 implementation 'com.github.LillteZheng:AppUpdate:v1.4'
