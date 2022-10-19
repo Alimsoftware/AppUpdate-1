@@ -1,6 +1,6 @@
 # AppUpdate
 
-开发中，我们常常会需要有apk升级，或者下载某个文件的问题。所以这里就写了个通用的文件下载的功能 **ZDown**。通过这篇文章你将看到
+In development, we often need to upgrade apk or download a file. So here is a general file download function **ZDown**. Through this article you will see
  - Common framework API interface design
  - The principle and implementation of multi-thread download
  - Background download, after the interface exits, come in and continue to display the principle of the download UI
@@ -33,7 +33,7 @@ Then write ZDloader:
 implementation 'com.github.LillteZheng:AppUpdate:v1.4'
 ```
 
-**由于使用了 retrofit 和rxjava 等框架，所以，还需要在您的工程中添加以下关联，不然报错**
+**Since frameworks such as retrofit and rxjava are used, you also need to add the following associations to your project, otherwise an error will be reported**
 
 ```
     implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
@@ -45,7 +45,7 @@ implementation 'com.github.LillteZheng:AppUpdate:v1.4'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
 ```
 
-## 一、检查版本
+## 1. Check the version
 
 ```
         ZDown.checkWith(this)
@@ -65,25 +65,25 @@ implementation 'com.github.LillteZheng:AppUpdate:v1.4'
 
 ```
 
-在listener中，可以把要转换的数据写上，如果不想转换成实体 bean，直接 String.class 就是返回原始的字符串了。
-checkWith 还支持写入参数，使用 params(..) ，支持 get() 和 post()
+In the listener, you can write the data to be converted. If you don't want to convert it into an entity bean, you can simply return the original string with String.class.
+checkWith also supports writing parameters, using params(..) , supports get() and post()
 
 
-在检查完版本，可以使用如下代码下载文件：
+After checking the version, you can use the following code to download the file：
 
 
 ```
 ZDown.with(MainActivity.this)
     .url(fileUrlTest)
-    //线程设置为3
+    //threads set to 3
     .threadCount(3)
-    //ui刷新时间为 500 毫秒
+    //ui refresh time is 500ms
     .reFreshTime(500)
-    //路径保存的路径，默认内部存
+    //The path to save the path, the default internal memory
     .filePath(mPath)
-    //.allowBackDownload(true)  是否允许后台更新
+    //.allowBackDownload(true)  Whether to allow background updates
 
- //   .fileName("test.apk") fileName默认根绝连接去截取，也可以自己写
+ //   .fileName("test.apk") The fileName defaults to root the connection to intercept, or you can write it yourself
     .listener(new TaskListener() {
         @Override
         public void onSuccess(String filePath, String md5Msg) {
@@ -109,22 +109,22 @@ ZDown.with(MainActivity.this)
     
 ```
 
-## 二、混淆
-内部已混淆，但如果使用 CheckListener 传入 bean 类，bean类需要自己混淆，eg：
+## 2. Confusion
+It has been obfuscated internally, but if you use CheckListener to pass in a bean class, the bean class needs to be obfuscated by itself, eg:
 ```
 -keep class com.zhengsr.appupdate.bean.** { *; }
 ```
 
-ZDown 为程序入口，它提供以下方法：
+ZDown is the program entry, it provides the following methods:
 
-- pause() 暂停任务
-- start() 开始任务
-- stopTask() 停止任务 ，如果你的apk更新不是在 activity 使用，建议在app退出的时候，使用该方法，防止内存泄漏
-- stopTaskAndDeleteCache() 停止任务，并删除已文件和数据库，当任务失败时，可以使用
-- isTaskExists() 任务是否存在
-- isRunning() 是否正在下载
-- updateListener() 从后台退回来，如果任务正在下载，直接更新接口就可以了，UI就不会乱了
-- deleteCacheAndStart() 当任务失败时，可以用这个把缓存文件和数据删了
+- pause() Pause task
+- start() start task
+- stopTask() Stop the task, if your apk update is not used in the activity, it is recommended to use this method when the app exits to prevent memory leaks
+- stopTaskAndDeleteCache() Stop the task and delete the existing files and databases. When the task fails, you can use
+- isTaskExists() Does the task exist
+- isRunning() Is it downloading
+- updateListener() Return from the background, if the task is downloading, just update the interface directly, the UI will not be messed up
+- deleteCacheAndStart() When the task fails, you can use this to delete the cache files and data
 
 
 
